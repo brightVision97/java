@@ -1,12 +1,12 @@
+package Recursion;
+
 public class BalancedParentheses
 {
     static void printParenthesis(char[] result, int pos, int n, int open, int close)
     {
         if (close == n)
-        {
             printCombinations(result);
-            
-        } else
+        else
         {
             if (open > close)
             {
@@ -31,7 +31,9 @@ public class BalancedParentheses
 
     public static void main(String[] args)
     {
-        int n = 3;
+        int n = 8;
+        n /= 2;
+
         char[] result = new char[n * 2];
 
         printParenthesis(result, 0, n, 0, 0);
