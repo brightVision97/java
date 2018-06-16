@@ -1,4 +1,5 @@
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MatrixMaxSum
@@ -18,55 +19,56 @@ public class MatrixMaxSum
     public static void main(String[] args)
     {
         fakeInput();
-        Scanner scanner = new Scanner(System.in);
-        int rows = Integer.parseInt(scanner.nextLine());
-        String firstRow = scanner.nextLine();
-        String[] firstRowArray = firstRow.split(" ");
-        int[][] matrix = new int[rows][firstRowArray.length];
-        for (int i = 0; i < firstRowArray.length; i++){
-            matrix[0][i] = Integer.parseInt(firstRowArray[i]);
-        }
-        for (int i = 0; i < rows - 1; i++){
-            String[] currentRow = scanner.nextLine().split(" ");
-            for (int j = 0; j < firstRowArray.length; j++){
-                matrix[i + 1][j] = Integer.parseInt(currentRow[j]);
-            }
-        }
-        String[] tries = scanner.nextLine().split(" ");
-        int biggestTry = Integer.MIN_VALUE;
-        for (int i = 0; i < tries.length; i+=2){
-            int currentSum = 0;
-            int currentRow = Integer.parseInt(tries[i]);
-            int currentColumn = Integer.parseInt(tries[i+1]);
-            if (currentRow >= 0){
-                int currentColumnRow = Math.abs(currentColumn);
-                for(int j = 0; j < currentColumnRow; j++){
-                    currentSum+=matrix[currentRow - 1][j];
-                }
-            }
-            else {
-                int currentColumnRow = Math.abs(currentColumn);
-                for(int j = currentColumnRow - 1; j < firstRowArray.length; j++){
-                    currentSum+=matrix[Math.abs(currentRow) - 1][j];
-                }
-            }
-            if (currentColumn >= 0){
-                int currentRowColumn = Math.abs(currentRow);
-                for(int j = currentRowColumn - 1; j >= 0; j--){
-                    currentSum+=matrix[j][currentColumn - 1];
-                }
-            }
-            else {
-                int currentRowColumn = Math.abs(currentRow);
-                for(int j = currentRowColumn - 1; j < rows; j++){
-                    currentSum+=matrix[j][Math.abs(currentColumn) - 1];
-                }
-            }
-            if (currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1] > biggestTry){
-                biggestTry  = currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1];
-            }
-        }
-        System.out.println(biggestTry);
+        Scanner input = new Scanner(System.in);
 
+        int rows = input.nextInt();
+        input.nextLine();
+
+        int[] firstRow = Arrays.stream(input.nextLine().split("\\s"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        int[][] matrix = new int[rows][firstRow.length];
+
+        matrix[0] = firstRow;
+
+        for (int i = 1; i < rows; i++)
+            matrix[i] = Arrays.stream(input.nextLine().split("\\s"))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+
+        int[] coords = Arrays.stream(input.nextLine().split("\\s"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        int maxSum = Integer.MIN_VALUE;
+
+        for (int i = 0; i < coords.length; i += 2)
+        {
+            int currentSum = 0;
+            int currentRow = coords[i];
+            int currentColumn = coords[i + 1];
+
+            int currentColumnRow = Math.abs(currentColumn);
+            int currentRowColumn = Math.abs(currentRow);
+            if (currentRow >= 0)
+                for (int j = 0; j < Math.abs(currentColumn); j++)
+                    currentSum += matrix[currentRow - 1][j];
+            else
+                for (int j = currentColumnRow - 1; j < firstRow.length; j++)
+                    currentSum += matrix[Math.abs(currentRow) - 1][j];
+
+            if (currentColumn >= 0)
+                for (int j = currentRowColumn - 1; j >= 0; j--)
+                    currentSum += matrix[j][currentColumn - 1];
+            else
+                for(int j = currentRowColumn - 1; j < rows; j++)
+                    currentSum += matrix[j][Math.abs(currentColumn) - 1];
+
+            if (currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1] > maxSum)
+                maxSum  = currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1];
+        }
+
+        System.out.println(maxSum);
     }
 }
