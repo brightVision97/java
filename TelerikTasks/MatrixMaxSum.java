@@ -42,7 +42,6 @@ public class MatrixMaxSum
                 .toArray();
 
         int maxSum = Integer.MIN_VALUE;
-
         for (int i = 0; i < coords.length; i += 2)
         {
             int currentSum = 0;
@@ -51,22 +50,23 @@ public class MatrixMaxSum
 
             int currentColumnRow = Math.abs(currentColumn);
             int currentRowColumn = Math.abs(currentRow);
+            
             if (currentRow >= 0)
-                for (int j = 0; j < Math.abs(currentColumn); j++)
+                for (int j = 0; j < currentColumnRow; j++)
                     currentSum += matrix[currentRow - 1][j];
             else
                 for (int j = currentColumnRow - 1; j < firstRow.length; j++)
-                    currentSum += matrix[Math.abs(currentRow) - 1][j];
+                    currentSum += matrix[currentRowColumn - 1][j];
 
             if (currentColumn >= 0)
                 for (int j = currentRowColumn - 1; j >= 0; j--)
                     currentSum += matrix[j][currentColumn - 1];
             else
                 for(int j = currentRowColumn - 1; j < rows; j++)
-                    currentSum += matrix[j][Math.abs(currentColumn) - 1];
+                    currentSum += matrix[j][currentColumnRow - 1];
 
-            if (currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1] > maxSum)
-                maxSum  = currentSum - matrix[Math.abs(currentRow) - 1][Math.abs(currentColumn) - 1];
+            if (currentSum - matrix[currentRowColumn - 1][currentColumnRow - 1] > maxSum)
+                maxSum  = currentSum - matrix[currentRowColumn - 1][currentColumnRow - 1];
         }
 
         System.out.println(maxSum);
