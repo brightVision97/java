@@ -33,7 +33,7 @@ public class WildcardMatching
                 strPointer = match;
             }
             /* current pattern pointer is not *, last pattern
-             pointer was not * - >characters do not match */
+             pointer was not * -> characters do not match */
             else
                 return false;
         }

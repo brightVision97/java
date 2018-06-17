@@ -1,9 +1,12 @@
 package Recursion;
 
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class Numerology
+public class NumerologyWithArrLists
 {
     static void fakeInput()
     {
@@ -11,28 +14,34 @@ public class Numerology
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
 
-    static int[] result;
-
-    private static void countDigits(int[] digits)
+    static void count(List<Integer> digits, int[] digitsCounter)
     {
-        if (digits.length == 1)
+        if (digits.size() == 1)
         {
-            result[digits[0]]++;
+            digitsCounter[digits.get(0)]++;
             return;
         }
 
-        for (int i = 0; i < digits.length - 1; i++)
+        for (int i = 1; i < digits.size(); i++)
         {
-            int[] newDigits = new int[digits.length - 1];
-            for (int j = 0; j < i; j++)
-                newDigits[j] = digits[j];
+            int digitA = digits.get(i - 1);
+            int digitB = digits.get(i);
 
-            newDigits[i] = calculateDigit(digits[i], digits[i + 1]);
-            for (int j = i + 2; j < digits.length; j++)
-                newDigits[j - 1] = digits[j];
+            digits.set(i - 1, calculateDigit(digitA, digitB));
+            digits.remove(i);
 
-            countDigits(newDigits);
+            count(digits, digitsCounter);
+
+            digits.set(i - 1, digitA);
+            digits.add(i, digitB);
         }
+    }
+
+    static List<Integer> stringArrToIntList(String[] input)
+    {
+        return Arrays.stream(input)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
     }
 
     static int calculateDigit(int a, int b)
@@ -40,27 +49,22 @@ public class Numerology
         return ((a + b) * (a ^ b)) % 10;
     }
 
+    static void printArray(int[] digitsCounter)
+    {
+        Arrays.stream(digitsCounter)
+                .forEach(x -> System.out.print(x + " "));
+    }
+
     public static void main(String[] args)
     {
         fakeInput();
-        Scanner in = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-        int n = in.nextInt();
+        List<Integer> digits = stringArrToIntList(input.nextLine().split(""));
 
-        result = new int[10];
+        int[] digitsCounter = new int[10];
 
-        int[] digits = new int[8];
-
-        int i = digits.length - 1;
-        while (n > 0)
-        {
-            digits[i--] = n % 10;
-            n /= 10;
-        }
-
-        countDigits(digits);
-
-        for (int num : result)
-            System.out.print(num + " ");
+        count(digits, digitsCounter);
+        printArray(digitsCounter);
     }
 }
