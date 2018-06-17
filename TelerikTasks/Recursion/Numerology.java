@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class NumerologyWithArrLists
+public class Numerology
 {
     static void fakeInput()
     {
@@ -37,19 +37,12 @@ public class NumerologyWithArrLists
         }
     }
 
-    static List<Integer> stringArrToIntList(String[] input)
-    {
-        return Arrays.stream(input)
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
-    }
-
     static int calculateDigit(int a, int b)
     {
         return ((a + b) * (a ^ b)) % 10;
     }
 
-    static void printArray(int[] digitsCounter)
+    static void print(int[] digitsCounter)
     {
         Arrays.stream(digitsCounter)
                 .forEach(x -> System.out.print(x + " "));
@@ -60,11 +53,14 @@ public class NumerologyWithArrLists
         fakeInput();
         Scanner input = new Scanner(System.in);
 
-        List<Integer> digits = stringArrToIntList(input.nextLine().split(""));
+        List<Integer> digits = Arrays.stream(input.nextLine().split(""))
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
 
         int[] digitsCounter = new int[10];
 
         count(digits, digitsCounter);
-        printArray(digitsCounter);
+
+        print(digitsCounter);
     }
 }
