@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -55,7 +55,6 @@ public class ExpressionsAgain
 
         int number = 0;
         int result = 0;
-
         for (int i = 0; i < numbers.length; i++)
         {
             number *= 10;

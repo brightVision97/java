@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 public class WordSearch
 {
@@ -30,7 +30,7 @@ public class WordSearch
         if (search(board, word, row - 1, col, index + 1) ||
                 search(board, word, row + 1, col, index + 1) ||
                 search(board, word, row, col - 1, index + 1) ||
-                search(board, word, row, col + 1, index+1))
+                search(board, word, row, col + 1, index + 1))
             return true;
 
         visited[row][col] = false;
@@ -47,6 +47,6 @@ public class WordSearch
                         {'A', 'D', 'E', 'E'}
                 };
 
-        System.out.println(exist(board, "ABC"));
+        System.out.println(exist(board, "BASAD"));
     }
 }

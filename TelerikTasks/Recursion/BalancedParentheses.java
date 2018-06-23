@@ -1,8 +1,8 @@
-package Recursion;
+package recursion;
 
 public class BalancedParentheses
 {
-    static void printParenthesis(char[] result, int pos, int n, int open, int close)
+    static void printParentheses(char[] result, int pos, int n, int open, int close)
     {
         if (close == n)
             printCombinations(result);
@@ -11,13 +11,13 @@ public class BalancedParentheses
             if (open > close)
             {
                 result[pos] = ')';
-                printParenthesis(result, pos + 1, n, open, close + 1);
+                printParentheses(result, pos + 1, n, open, close + 1);
             }
 
             if (open < n)
             {
                 result[pos] = '(';
-                printParenthesis(result, pos + 1, n, open + 1, close);
+                printParentheses(result, pos + 1, n, open + 1, close);
             }
         }
     }
@@ -26,6 +26,7 @@ public class BalancedParentheses
     {
         for (int i = 0; i < result.length; i++)
             System.out.print(result[i]);
+
         System.out.println();
     }
 
@@ -36,6 +37,6 @@ public class BalancedParentheses
 
         char[] result = new char[n * 2];
 
-        printParenthesis(result, 0, n, 0, 0);
+        printParentheses(result, 0, n, 0, 0);
     }
 }

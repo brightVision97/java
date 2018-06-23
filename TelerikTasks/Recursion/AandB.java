@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class AandB
             System.out.println(new String(container));
         else
         {
-            for (int i = 0 ; i < ab.length() ; i++)
+            for (int i = 0; i < ab.length(); i++)
             {
                 container[position] = ab.charAt(i);
 
@@ -28,7 +28,7 @@ public class AandB
         }
     }
 
-    public static String sortString(String inputString)
+    static String sortString(String inputString)
     {
         char tempArray[] = inputString.toCharArray();
 

@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;

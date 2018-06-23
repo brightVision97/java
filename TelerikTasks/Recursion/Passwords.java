@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -51,7 +51,6 @@ public class Passwords
             switch (directions[directionIndex])
             {
                 case '>':
-                {
                     if (lastChar == '0')
                         return;
 
@@ -71,9 +70,7 @@ public class Passwords
                     }
 
                     break;
-                }
                 case '<':
-                {
                     for (int i = 1; i < start; i++)
                     {
                         current.append(i);
@@ -82,15 +79,12 @@ public class Passwords
                     }
 
                     break;
-                }
                 case '=':
-                {
                     current.append(lastChar);
                     finalCombination(current, directions, directionIndex + 1);
                     current.deleteCharAt(current.length() - 1);
 
                     break;
-                }
                 default:
                     break;
             }

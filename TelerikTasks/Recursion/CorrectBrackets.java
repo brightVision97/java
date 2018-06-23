@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.util.*;
 
@@ -14,7 +14,9 @@ public class CorrectBrackets
             return brackets;
         }
 
-        LinkedHashSet<String> currentBrackets = generateExpression(expression + "()", n);
+        LinkedHashSet<String> currentBrackets =
+                generateExpression(expression + "()", n);
+
         brackets.addAll(currentBrackets);
         currentBrackets = generateExpression("()" + expression, n);
         brackets.addAll(currentBrackets);

@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -15,14 +15,13 @@ public class GirlsGoneWild
                 "2";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
-
+    
     static boolean[] used;
     static SortedSet<String> combinations = new TreeSet<>();
     static List<Character> usedLetters = new ArrayList<>();
 
     static void girlsGoneWild(StringBuilder current, int skirtsIndex, char[] skirts,
-                              int shirts, int shirtsIndex,
-                              int girls, int girlIndex)
+                              int shirts, int shirtsIndex, int girls, int girlIndex)
     {
         if (girlIndex == girls)
         {
@@ -56,12 +55,12 @@ public class GirlsGoneWild
         for (String combination : combinations)
             System.out.println(combination);
     }
-
+    
     public static void main(String[] args) throws IOException
     {
         fakeInput();
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-
+        
         int shirts = Integer.parseInt(bf.readLine());
         char[] skirts = bf.readLine().toCharArray();
         int girls = Integer.parseInt(bf.readLine());
@@ -74,7 +73,7 @@ public class GirlsGoneWild
             {
                 StringBuilder start = new StringBuilder().append(i).append(skirts[j]);
 
-                if(usedLetters.contains(skirts[j]))
+                if (usedLetters.contains(skirts[j]))
                     continue;
 
                 usedLetters.add(skirts[j]);

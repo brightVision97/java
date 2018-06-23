@@ -1,4 +1,4 @@
-package Recursion;
+package recursion;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,23 +16,23 @@ public class Swappings
             findSequenceAtTheEnd(numbers, ++index, sequence);
         }
 
-        return listToString(sequence).trim();
+        return listToString(sequence);
     }
 
-    static String swap(int indexOfSwapper, List<Integer> sequence)
+    static String swap(int swapperIndex, List<Integer> sequence)
     {
-        int[] temp = new int[indexOfSwapper];
+        int[] temp = new int[swapperIndex];
 
         for (int i = 0; i < temp.length; i++)
             temp[i] = sequence.get(i);
 
-        int end = sequence.size() - 1 - indexOfSwapper;
-        int swapper = sequence.get(indexOfSwapper);
+        int end = sequence.size() - 1 - swapperIndex;
+        int swapper = sequence.get(swapperIndex);
 
         int p = 1;
         for (int i = 0; i < end; i++)
         {
-            sequence.set(i, sequence.get(indexOfSwapper + p));
+            sequence.set(i, sequence.get(swapperIndex + p));
             ++p;
         }
 
@@ -51,7 +51,8 @@ public class Swappings
     {
         return sequence.stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(" "))
+                .trim();
     }
 
     static int[] stringArrToIntArr(String[] input)
