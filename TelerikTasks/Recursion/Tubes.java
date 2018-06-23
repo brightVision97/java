@@ -1,3 +1,5 @@
+package recursion;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class Tubes
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
     
-    static int binarySearchRecursive(int[] arr, int x, int left, int right)
+    static int binarySearchMaxSize(int[] arr, int x, int left, int right)
     {
         int mid = (left + right) / 2;
         
@@ -28,15 +30,13 @@ public class Tubes
         for (int i = 0; i < arr.length; i++)
             tubes += (arr[i] / mid);
         
-        if (tubes < x)
-            return binarySearchRecursive(arr, x, left, mid - 1);
-        else
-            return binarySearchRecursive(arr, x, mid + 1, right);
+        return (tubes < x) ? binarySearchMaxSize(arr, x, left, mid - 1) :
+                binarySearchMaxSize(arr, x, mid + 1, right);
     }
     
-    static int binarySearchRecursive(int[] arr, int x)
+    static int binarySearchMaxSize(int[] arr, int x)
     {
-        return binarySearchRecursive(arr, x, 1, arr[arr.length - 1]);
+        return binarySearchMaxSize(arr, x, 1, arr[arr.length - 1]);
     }
     
     public static void main(String[] args) throws IOException
@@ -52,32 +52,8 @@ public class Tubes
         for (int i = 0; i < n; i++)
             sizes[i] = Integer.parseInt(br.readLine());
         
-        int minTubeSize = Arrays.stream(sizes).min().getAsInt();
-        int maxTubeSize = Arrays.stream(sizes).max().getAsInt();
-        int tubeSizesSum = Arrays.stream(sizes).sum();
-        
         Arrays.sort(sizes);
         
-        int result = 0;
-        
-        for (int i = maxTubeSize; i > 0; i--)
-        {
-            int cuts = 0;
-            for (int j = n - 1; j >= 0; j--)
-            {
-                int currentMaxSize = sizes[j] / i;
-                cuts += currentMaxSize;
-            }
-            
-            if (cuts >= tubes)
-            {
-                result = i;
-                break;
-            }
-        }
-        
-        System.out.println(result);
-        
-        System.out.println(binarySearchRecursive(sizes, tubes));
+        System.out.println(binarySearchMaxSize(sizes, tubes));
     }
 }
