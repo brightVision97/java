@@ -56,9 +56,6 @@ public class Application
             String commandString = in.nextLine();
             Command command = this.commandParser.parseCommand(commandString);
             
-            if (command.getCommandType() == CommandType.EXIT)
-                System.exit(0);
-            
             // NOTICE => only description is allowed to be empty
             switch (command.getCommandType())
             {
@@ -98,6 +95,12 @@ public class Application
                 case LIST_TODOS:
                     handleListTodos();
                     break;
+                case LIST_TICKETS:
+                    handleListTickets();
+                    break;
+                case LIST_TODOS_NOT_DONE:
+                    handleListTodosNotDone();
+                    break;
                 case UPDATE_TODO:
                     try
                     {
@@ -109,12 +112,6 @@ public class Application
                     {
                         System.err.println(ex1.getMessage());
                     }
-                    break;
-                case LIST_TICKETS:
-                    handleListTickets();
-                    break;
-                case LIST_TODOS_NOT_DONE:
-                    handleListTodosNotDone();
                     break;
                 case SEARCH:
                     try
@@ -128,6 +125,8 @@ public class Application
                 case INVALID:
                     System.err.println("Invalid or not full command!");
                     break;
+                case EXIT:
+                    System.exit(0);
             }
         }
     }
