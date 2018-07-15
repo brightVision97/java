@@ -14,13 +14,11 @@ public class Task extends RemindableItem
     
     private String assignee;
     private Date plannedTime;
-    private Priority priority;
     
     public Task(String title, String description, Date dueDate,
                 Priority priority, Date plannedTime, String assignee)
     {
-        super(title, description, dueDate);
-        setPriority(priority);
+        super(title, description, dueDate, priority);
         setPlannedTime(plannedTime);
         setAssignee(assignee);
     }
@@ -47,19 +45,13 @@ public class Task extends RemindableItem
         this.plannedTime = plannedTime;
     }
     
-    private void setPriority(Priority priority)
-    {
-        this.priority = priority;
-    }
-    
     @Override
     public String toString()
     {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         return "[Task]\n" + super.toString() +
-                "\nAssignee: " + assignee +
                 "\nPlanned time: " + format.format(plannedTime) +
-                "\nPriority: " + priority;
+                "\nAssignee: " + assignee;
     }
 }

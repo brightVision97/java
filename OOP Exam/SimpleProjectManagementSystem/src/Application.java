@@ -82,7 +82,11 @@ public class Application
                     } catch (IllegalArgumentException | ParseException ex)
                     {
                         suspend();
-                        System.err.println(ex.getMessage());
+                        if (ex instanceof NumberFormatException)
+                            System.err.println("Your input date shouldn't contain non-numeric" +
+                                    " charactersas for either day, month or year!");
+                        else
+                            System.err.println(ex.getMessage());
                         suspend();
                     }
                     break;
@@ -93,7 +97,11 @@ public class Application
                     } catch (IllegalArgumentException | ParseException ex)
                     {
                         suspend();
-                        System.err.println(ex.getMessage());
+                        if (ex instanceof NumberFormatException)
+                            System.err.println("Your input date shouldn't contain non-numeric" +
+                                    " charactersas for either day, month or year!");
+                        else
+                            System.err.println(ex.getMessage());
                         suspend();
                     }
                     break;
@@ -304,7 +312,7 @@ public class Application
     private void handleListTasks()
     {
         List<Item> tasks = system.listTasks();
-    
+        
         System.out.println();
         tasks.forEach(task -> System.out.println(
                 "(" + (tasks.indexOf(task) + 1) + ") " + task.toString() + "\n"));
@@ -313,7 +321,7 @@ public class Application
     private void handleListTodos()
     {
         List<Item> todos = system.listTodos();
-    
+        
         System.out.println();
         todos.forEach(todo -> System.out.println(
                 "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
@@ -322,7 +330,7 @@ public class Application
     private void handleListTickets()
     {
         List<Item> tickets = system.listTickets();
-    
+        
         System.out.println();
         tickets.forEach(ticket -> System.out.println(
                 "(" + (tickets.indexOf(ticket) + 1) + ") " + ticket.toString() + "\n"));
@@ -331,7 +339,7 @@ public class Application
     private void handleListTodosNotDone()
     {
         List<Item> todos = system.listTodos(TodoState.NOT_DONE);
-    
+        
         System.out.println();
         todos.forEach(todo -> System.out.println(
                 "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
@@ -349,7 +357,6 @@ public class Application
             if (!Character.isDigit(ch))
                 throw new InputMismatchException("You should only give " +
                         "numbers as item indices!");
-        
         
         system.changeTodoState(Integer.parseInt(index), state);
     }

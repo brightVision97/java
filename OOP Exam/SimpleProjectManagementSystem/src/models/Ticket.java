@@ -11,16 +11,13 @@ public class Ticket extends RemindableItem
     private static final int EMPTY_SENDER_LENGTH = 0;
     private static final int EMPTY_OWNER_LENGTH = 0;
     
-    
     private String sender;
     private String owner;
-    private Priority priority;
     
     public Ticket(String title, String description, Date dueDate,
                   Priority priority, String sender, String owner)
     {
-        super(title, description, dueDate);
-        setPriority(priority);
+        super(title, description, dueDate, priority);
         setSender(sender);
         setOwner(owner);
     }
@@ -49,17 +46,11 @@ public class Ticket extends RemindableItem
         this.owner = owner;
     }
     
-    private void setPriority(Priority priority)
-    {
-        this.priority = priority;
-    }
-    
     @Override
     public String toString()
     {
         return "[Ticket]\n" + super.toString() +
                 "\nSender: " + sender +
-                "\nOwner: " + owner +
-                "\nPriority: " + priority;
+                "\nOwner: " + owner;
     }
 }

@@ -19,4 +19,13 @@ public enum TodoState
                 return null;
         }
     }
+    
+    @Override
+    public String toString()
+    {
+        if (this == DONE)
+            return "Done";
+        
+        return "Not done";
+    }
 }

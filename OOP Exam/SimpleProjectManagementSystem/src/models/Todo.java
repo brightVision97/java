@@ -26,6 +26,6 @@ public class Todo extends Item
     public String toString()
     {
         return "[ToDo]\n" + super.toString() +
-                "\nState: " + state;
+                "\nState: " + state.toString();
     }
 }
