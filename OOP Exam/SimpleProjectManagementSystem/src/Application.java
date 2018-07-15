@@ -15,7 +15,6 @@ import java.util.*;
 public class Application
 {
     private static final int DATE_LENGTH = 10;
-    private static final int MIN_COMMAND_PARAMS = 1;
     private static final int MAX_TODO_PARAMS = 3;
     private static final int MAX_TICKET_PARAMS = 6;
     private static final int MAX_TASK_PARAMS = 6;
@@ -127,6 +126,7 @@ public class Application
                     }
                     break;
                 case INVALID:
+                    System.err.println("Invalid or not full command!");
                     break;
             }
         }
@@ -167,10 +167,8 @@ public class Application
             noDescription = true;
         } else
         {
-            if (command.getParams().length < MIN_COMMAND_PARAMS ||
-                    command.getParams().length > MAX_TODO_PARAMS)
-                throw new IllegalArgumentException("You should give" +
-                        " between 1 and 3 parameters");
+            if (command.getParams().length != MAX_TODO_PARAMS)
+                throw new IllegalArgumentException("You should give 2 or 3 todo parameters!");
             
             description = command.getParams()[1];
         }
@@ -197,10 +195,8 @@ public class Application
             noDescription = true;
         } else
         {
-            if (command.getParams().length < MIN_COMMAND_PARAMS ||
-                    command.getParams().length > MAX_TASK_PARAMS)
-                throw new IllegalArgumentException("You should give minimum 1 " +
-                        "and maximum 6 parameters");
+            if (command.getParams().length != MAX_TASK_PARAMS)
+                throw new IllegalArgumentException("You should give 5 or 6 task parameters!");
             
             description = command.getParams()[1];
         }
@@ -230,10 +226,8 @@ public class Application
             noDescription = true;
         } else
         {
-            if (command.getParams().length < MIN_COMMAND_PARAMS ||
-                    command.getParams().length > MAX_TICKET_PARAMS)
-                throw new IllegalArgumentException("You should give minimum 1 " +
-                        "and maximum 6 parameters");
+            if (command.getParams().length != MAX_TICKET_PARAMS)
+                throw new IllegalArgumentException("You should give minimum 5 or 6 ticket parameters!");
             
             description = command.getParams()[1];
         }
@@ -284,10 +278,8 @@ public class Application
     
     private void handleUpdateTodo(Command command)
     {
-        if (command.getParams().length < MIN_COMMAND_PARAMS ||
-                command.getParams().length > MAX_UPDATE_PARAMS)
-            throw new IllegalArgumentException("You should give minimum 1" +
-                    " and maximum 2 parameters");
+        if (command.getParams().length != MAX_UPDATE_PARAMS)
+            throw new IllegalArgumentException("You should give 2 todo-update parameters!");
         
         String index = command.getParams()[0];
         TodoState state = TodoState.fromName(command.getParams()[1]);
@@ -303,8 +295,7 @@ public class Application
     
     private void handleSearchByTitleOrDescription(Command command)
     {
-        if (command.getParams().length < MIN_COMMAND_PARAMS ||
-                command.getParams().length > MAX_SEARCH_PARAMS)
+        if (command.getParams().length != MAX_SEARCH_PARAMS)
             throw new IllegalArgumentException("You should give a pattern to search");
         
         String pattern = command.getParams()[0];
