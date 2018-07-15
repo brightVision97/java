@@ -30,4 +30,6 @@ public interface ProjectManagementSystem
     List<Item> searchByTitleOrDescription(String pattern);
     
     void changeTodoState(int index, TodoState state);
+    
+    void removeItem(String itemType, int index);
 }

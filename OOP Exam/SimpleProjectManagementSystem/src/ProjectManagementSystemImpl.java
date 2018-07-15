@@ -109,8 +109,56 @@ public class ProjectManagementSystemImpl implements ProjectManagementSystem
         List<Item> todos = listTodos();
         
         if (index < 1 || index > todos.size())
-            throw new IndexOutOfBoundsException("Index not in boundaries!");
+            throw new IndexOutOfBoundsException("Index out of range!");
         
         ((Todo) todos.get(index - 1)).setState(state);
+    }
+    
+    @Override
+    public void removeItem(String itemType, int index)
+    {
+        itemType = itemType.toLowerCase();
+        
+        if (!itemType.equals("item") && !itemType.equals("todo") &&
+                !itemType.equals("task") && !itemType.equals("ticket"))
+            throw new IllegalArgumentException("Type parameter didn't match any existing item types!");
+        
+        Item toDelete = null;
+        switch (itemType)
+        {
+            case "item":
+                if (index < 1 || index > items.size())
+                    throw new IndexOutOfBoundsException("Index out of range!");
+                
+                items.remove(index - 1);
+                break;
+            case "todo":
+                List<Item> todos = listTodos();
+                
+                if (index < 1 || index > todos.size())
+                    throw new IndexOutOfBoundsException("Todos index out of range!");
+                
+                toDelete = todos.get(index - 1);
+                items.remove(toDelete);
+                break;
+            case "task":
+                List<Item> tasks = listTodos();
+    
+                if (index < 1 || index > tasks.size())
+                    throw new IndexOutOfBoundsException("Tasks index out of range!");
+    
+                toDelete = tasks.get(index - 1);
+                items.remove(toDelete);
+                break;
+            case "ticket":
+                List<Item> tickets = listTodos();
+    
+                if (index < 1 || index > tickets.size())
+                    throw new IndexOutOfBoundsException("Tickets index out of range!");
+    
+                toDelete = tickets.get(index - 1);
+                items.remove(toDelete);
+                break;
+        }
     }
 }

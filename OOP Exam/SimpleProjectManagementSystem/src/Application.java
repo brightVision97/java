@@ -19,6 +19,7 @@ public class Application
     private static final int MAX_TASK_PARAMS = 6;
     private static final int MAX_UPDATE_PARAMS = 2;
     private static final int MAX_SEARCH_PARAMS = 1;
+    private static final int MAX_REMOVE_PARAMS = 2;
     private static final int MAX_TICKET_DESCRLESS_PARAMS = 5;
     private static final int MAX_TASK_DESCRLESS_PARAMS = 5;
     private static final int MAX_TODO_DESCRLESS_PARAMS = 2;
@@ -42,17 +43,22 @@ public class Application
                 "\nADD-TODO breakfast-for-kids NOT-DONE" +
                 "\nADD-TASK complete-project 20/07/2018 HIGH 19/07/2018 Doncho" +
                 "\nLIST-ALL" +
+                "\nREMOVE err" +
+                "\nREMOVE ITEM 4" +
+                "\nREMOVE TODO 3" +
+                "\nLIST-ALL" +
                 "\nEXIT";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
     
-    public void run()
+    public void run() throws InterruptedException
     {
         fakeInput();
-        Scanner in = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        
         while (true)
         {
-            String commandString = in.nextLine();
+            String commandString = input.nextLine();
             Command command = this.commandParser.parseCommand(commandString);
             
             // NOTICE => only description is allowed to be empty
@@ -64,7 +70,9 @@ public class Application
                         handleAddTodo(command);
                     } catch (IllegalArgumentException ex)
                     {
+                        suspend();
                         System.err.println(ex.getMessage());
+                        suspend();
                     }
                     break;
                 case ADD_TASK:
@@ -73,7 +81,9 @@ public class Application
                         handleAddTask(command);
                     } catch (IllegalArgumentException | ParseException ex)
                     {
+                        suspend();
                         System.err.println(ex.getMessage());
+                        suspend();
                     }
                     break;
                 case ADD_TICKET:
@@ -82,7 +92,9 @@ public class Application
                         handleAddTicket(command);
                     } catch (IllegalArgumentException | ParseException ex)
                     {
+                        suspend();
                         System.err.println(ex.getMessage());
+                        suspend();
                     }
                     break;
                 case LIST_ALL:
@@ -104,12 +116,21 @@ public class Application
                     try
                     {
                         handleUpdateTodo(command);
-                    } catch (IndexOutOfBoundsException ex)
+                    } catch (IllegalArgumentException ex)
                     {
+                        suspend();
                         System.err.println(ex.getMessage());
-                    } catch (InputMismatchException ex1)
+                        suspend();
+                    } catch (IndexOutOfBoundsException ex1)
                     {
+                        suspend();
                         System.err.println(ex1.getMessage());
+                        suspend();
+                    } catch (InputMismatchException ex2)
+                    {
+                        suspend();
+                        System.err.println(ex2.getMessage());
+                        suspend();
                     }
                     break;
                 case SEARCH:
@@ -118,16 +139,45 @@ public class Application
                         handleSearchByTitleOrDescription(command);
                     } catch (IllegalArgumentException ex)
                     {
+                        suspend();
                         System.err.println(ex.getMessage());
+                        suspend();
+                    }
+                    break;
+                case REMOVE:
+                    try
+                    {
+                        handleRemoveItem(command);
+                    } catch (IllegalArgumentException ex)
+                    {
+                        suspend();
+                        System.err.println(ex.getMessage());
+                        suspend();
+                    } catch (InputMismatchException ex1)
+                    {
+                        suspend();
+                        System.err.println(ex1.getMessage());
+                        suspend();
+                    } catch (IndexOutOfBoundsException ex2)
+                    {
+                        suspend();
+                        System.err.println(ex2.getMessage());
+                        suspend();
                     }
                     break;
                 case INVALID:
                     System.err.println("Invalid or not full command!");
                     break;
                 case EXIT:
+                    input.close();
                     System.exit(0);
             }
         }
+    }
+    
+    private static void suspend() throws InterruptedException
+    {
+        Thread.sleep(50);
     }
     
     private Date processDate(String date) throws ParseException
@@ -244,34 +294,47 @@ public class Application
     
     private void handleListAll()
     {
-        system.listAll()
-                .forEach(item -> System.out.println(item.toString() + "\n"));
+        List<Item> allItems = new ArrayList<>(system.listAll());
+        
+        System.out.println();
+        allItems.forEach(item -> System.out.println(
+                "(" + (allItems.indexOf(item) + 1) + ") " + item.toString() + "\n"));
     }
     
     private void handleListTasks()
     {
-        system.listTasks()
-                .forEach(task -> System.out.println(task.toString() + "\n"));
+        List<Item> tasks = system.listTasks();
+    
+        System.out.println();
+        tasks.forEach(task -> System.out.println(
+                "(" + (tasks.indexOf(task) + 1) + ") " + task.toString() + "\n"));
     }
     
     private void handleListTodos()
     {
         List<Item> todos = system.listTodos();
-        
+    
+        System.out.println();
         todos.forEach(todo -> System.out.println(
-                (todos.indexOf(todo) + 1) + "." + todo.toString() + "\n"));
+                "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
     }
     
     private void handleListTickets()
     {
-        system.listTickets()
-                .forEach(ticket -> System.out.println(ticket.toString() + "\n"));
+        List<Item> tickets = system.listTickets();
+    
+        System.out.println();
+        tickets.forEach(ticket -> System.out.println(
+                "(" + (tickets.indexOf(ticket) + 1) + ") " + ticket.toString() + "\n"));
     }
     
     private void handleListTodosNotDone()
     {
-        system.listTodos(TodoState.NOT_DONE)
-                .forEach(todo -> System.out.println(todo.toString() + "\n"));
+        List<Item> todos = system.listTodos(TodoState.NOT_DONE);
+    
+        System.out.println();
+        todos.forEach(todo -> System.out.println(
+                "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
     }
     
     private void handleUpdateTodo(Command command)
@@ -285,7 +348,7 @@ public class Application
         for (char ch : index.toCharArray())
             if (!Character.isDigit(ch))
                 throw new InputMismatchException("You should only give " +
-                        "numbers as note indices!");
+                        "numbers as item indices!");
         
         
         system.changeTodoState(Integer.parseInt(index), state);
@@ -300,5 +363,23 @@ public class Application
         
         system.searchByTitleOrDescription(pattern)
                 .forEach(item -> System.out.println(item.toString() + "\n"));
+    }
+    
+    private void handleRemoveItem(Command command)
+    {
+        if (command.getParams().length != MAX_REMOVE_PARAMS)
+            throw new IllegalArgumentException("You should give the item type and its index " +
+                    "from the collection containing SAME TYPE objects!\n" +
+                    "To get an index, first run the list command for a desired type");
+        
+        String itemType = command.getParams()[0];
+        String index = command.getParams()[1];
+        
+        for (char ch : index.toCharArray())
+            if (!Character.isDigit(ch))
+                throw new InputMismatchException("You should only give " +
+                        "numbers as item indices!");
+        
+        system.removeItem(itemType, Integer.parseInt(index));
     }
 }
