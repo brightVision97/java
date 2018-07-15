@@ -84,7 +84,7 @@ public class Application
                         suspend();
                         if (ex instanceof NumberFormatException)
                             System.err.println("Your input date shouldn't contain non-numeric" +
-                                    " charactersas for either day, month or year!");
+                                    " characters for either day, month or year!");
                         else
                             System.err.println(ex.getMessage());
                         suspend();
@@ -99,7 +99,7 @@ public class Application
                         suspend();
                         if (ex instanceof NumberFormatException)
                             System.err.println("Your input date shouldn't contain non-numeric" +
-                                    " charactersas for either day, month or year!");
+                                    " characters for either day, month or year!");
                         else
                             System.err.println(ex.getMessage());
                         suspend();
