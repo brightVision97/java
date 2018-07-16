@@ -2,8 +2,6 @@ package models;
 
 import models.base.RemindableItem;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 public class Task extends RemindableItem
 {
@@ -36,10 +34,10 @@ public class Task extends RemindableItem
     
     private void setPlannedTime(LocalDate plannedTime)
     {
-        LocalDate current = LocalDate.now();
+        LocalDate now = LocalDate.now();
         
-        if (plannedTime.isBefore(current))
-            throw new IllegalArgumentException("Wtf? Planned date can't be in the past!");
+        if (plannedTime.isBefore(now))
+            throw new IllegalArgumentException("Setting dates in the past is not allowed!");
         
         this.plannedTime = plannedTime;
     }
@@ -47,8 +45,6 @@ public class Task extends RemindableItem
     @Override
     public String toString()
     {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
         return "[Task]\n" + super.toString() +
                 "\nPlanned time: " + plannedTime.toString() +
                 "\nAssignee: " + assignee;

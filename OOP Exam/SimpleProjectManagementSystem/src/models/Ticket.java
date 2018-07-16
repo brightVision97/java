@@ -3,7 +3,6 @@ package models;
 import models.base.RemindableItem;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Ticket extends RemindableItem
 {

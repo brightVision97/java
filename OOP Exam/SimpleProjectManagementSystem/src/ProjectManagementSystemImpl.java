@@ -144,19 +144,19 @@ public class ProjectManagementSystemImpl implements ProjectManagementSystem
                 break;
             case "task":
                 List<Item> tasks = listTodos();
-    
+                
                 if (index < 1 || index > tasks.size())
                     throw new IndexOutOfBoundsException("Tasks index out of range!");
-    
+                
                 toDelete = tasks.get(index - 1);
                 items.remove(toDelete);
                 break;
             case "ticket":
                 List<Item> tickets = listTodos();
-    
+                
                 if (index < 1 || index > tickets.size())
                     throw new IndexOutOfBoundsException("Tickets index out of range!");
-    
+                
                 toDelete = tickets.get(index - 1);
                 items.remove(toDelete);
                 break;

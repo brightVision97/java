@@ -196,6 +196,7 @@ public class Application
             throw new IllegalArgumentException("Date input invalid!");
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        
         return LocalDate.parse(date, formatter);
     }
     
@@ -293,45 +294,45 @@ public class Application
     {
         List<Item> allItems = new ArrayList<>(system.listAll());
         
+        allItems.forEach(item -> System.out.printf("%n(%d) %s%n",
+                allItems.indexOf(item) + 1, item.toString()));
         System.out.println();
-        allItems.forEach(item -> System.out.println(
-                "(" + (allItems.indexOf(item) + 1) + ") " + item.toString() + "\n"));
     }
     
     private void handleListTasks()
     {
         List<Item> tasks = system.listTasks();
-        
+     
+        tasks.forEach(task -> System.out.printf("%n(%d) %s%n",
+                tasks.indexOf(task) + 1, task.toString()));
         System.out.println();
-        tasks.forEach(task -> System.out.println(
-                "(" + (tasks.indexOf(task) + 1) + ") " + task.toString() + "\n"));
     }
     
     private void handleListTodos()
     {
         List<Item> todos = system.listTodos();
-        
+      
+        todos.forEach(todo -> System.out.printf("%n(%d) %s%n",
+                todos.indexOf(todo) + 1, todo.toString()));
         System.out.println();
-        todos.forEach(todo -> System.out.println(
-                "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
     }
     
     private void handleListTickets()
     {
         List<Item> tickets = system.listTickets();
         
+        tickets.forEach(ticket -> System.out.printf("%n(%d) %s%n",
+                tickets.indexOf(ticket) + 1, ticket.toString()));
         System.out.println();
-        tickets.forEach(ticket -> System.out.println(
-                "(" + (tickets.indexOf(ticket) + 1) + ") " + ticket.toString() + "\n"));
     }
     
     private void handleListTodosNotDone()
     {
         List<Item> todos = system.listTodos(TodoState.NOT_DONE);
         
+        todos.forEach(todo -> System.out.printf("%n(%d) %s%n",
+                todos.indexOf(todo) + 1, todo.toString()));
         System.out.println();
-        todos.forEach(todo -> System.out.println(
-                "(" + (todos.indexOf(todo) + 1) + ") " + todo.toString() + "\n"));
     }
     
     private void handleUpdateTodo(Command command)
@@ -358,7 +359,7 @@ public class Application
         String pattern = command.getParams()[0];
         
         system.searchByTitleOrDescription(pattern)
-                .forEach(item -> System.out.println(item.toString() + "\n"));
+                .forEach(item -> System.out.printf("%n%s%n", item.toString()));
     }
     
     private void handleRemoveItem(Command command)
