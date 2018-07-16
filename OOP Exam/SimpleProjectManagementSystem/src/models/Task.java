@@ -4,8 +4,7 @@ import models.base.RemindableItem;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDate;
 public class Task extends RemindableItem
 {
     private static final int MIN_ASSIGNEE_LENGTH = 3;
@@ -13,10 +12,10 @@ public class Task extends RemindableItem
     private static final int EMPTY_ASSIGNEE_LENGTH = 0;
     
     private String assignee;
-    private Date plannedTime;
+    private LocalDate plannedTime;
     
-    public Task(String title, String description, Date dueDate,
-                Priority priority, Date plannedTime, String assignee)
+    public Task(String title, String description, LocalDate dueDate,
+                Priority priority, LocalDate plannedTime, String assignee)
     {
         super(title, description, dueDate, priority);
         setPlannedTime(plannedTime);
@@ -35,11 +34,11 @@ public class Task extends RemindableItem
         this.assignee = assignee;
     }
     
-    private void setPlannedTime(Date plannedTime)
+    private void setPlannedTime(LocalDate plannedTime)
     {
-        Date current = new Date();
+        LocalDate current = LocalDate.now();
         
-        if (plannedTime.getDate() < current.getDate())
+        if (plannedTime.isBefore(current))
             throw new IllegalArgumentException("Wtf? Planned date can't be in the past!");
         
         this.plannedTime = plannedTime;
@@ -51,7 +50,7 @@ public class Task extends RemindableItem
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         return "[Task]\n" + super.toString() +
-                "\nPlanned time: " + format.format(plannedTime) +
+                "\nPlanned time: " + plannedTime.toString() +
                 "\nAssignee: " + assignee;
     }
 }

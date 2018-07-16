@@ -4,28 +4,25 @@ import models.Priority;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 public abstract class RemindableItem extends Item
 {
-    private Date dueDate;
+    private LocalDate dueDate;
     private Priority priority;
     
-    public RemindableItem(String title, String description, Date dueDate, Priority priority)
+    public RemindableItem(String title, String description, LocalDate dueDate, Priority priority)
     {
         super(title, description);
         setDueDate(dueDate);
         setPriority(priority);
     }
     
-    private void setDueDate(Date dueDate)
+    private void setDueDate(LocalDate dueDate)
     {
-        Date current = new Date();
+        LocalDate current = LocalDate.now();
         
-        if (dueDate.getDate() < current.getDate())
+        if (dueDate.isBefore(current))
             throw new IllegalArgumentException("Wtf? Due date can't be in the past!");
         
         this.dueDate = dueDate;
@@ -48,6 +45,6 @@ public abstract class RemindableItem extends Item
         
         return super.toString() +
                 "\nPriority: " + priority.toString() +
-                "\nDue date: " + format.format(dueDate);
+                "\nDue date: " + dueDate.toString();
     }
 }

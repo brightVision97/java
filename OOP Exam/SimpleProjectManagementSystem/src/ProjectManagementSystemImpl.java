@@ -2,9 +2,9 @@ import base.ProjectManagementSystem;
 import models.*;
 import models.base.Item;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,7 @@ public class ProjectManagementSystemImpl implements ProjectManagementSystem
     }
     
     @Override
-    public void addTicket(String title, String description, Date dueDate,
+    public void addTicket(String title, String description, LocalDate dueDate,
                           Priority priority, String sender, String owner)
     {
         Item ticket = new Ticket(title, description, dueDate, priority, sender, owner);
@@ -40,8 +40,8 @@ public class ProjectManagementSystemImpl implements ProjectManagementSystem
     }
     
     @Override
-    public void addTask(String title, String description, Date dueDate,
-                        Priority priority, Date plannedTime, String assignee)
+    public void addTask(String title, String description, LocalDate dueDate,
+                        Priority priority, LocalDate plannedTime, String assignee)
     {
         Item task = new Task(title, description, dueDate, priority, plannedTime, assignee);
         

@@ -2,6 +2,7 @@ package models;
 
 import models.base.RemindableItem;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Ticket extends RemindableItem
@@ -14,7 +15,7 @@ public class Ticket extends RemindableItem
     private String sender;
     private String owner;
     
-    public Ticket(String title, String description, Date dueDate,
+    public Ticket(String title, String description, LocalDate dueDate,
                   Priority priority, String sender, String owner)
     {
         super(title, description, dueDate, priority);
