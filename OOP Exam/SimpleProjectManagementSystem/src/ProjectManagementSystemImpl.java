@@ -70,6 +70,7 @@ public class ProjectManagementSystemImpl implements ProjectManagementSystem
     {
         return items.stream()
                 .filter(item -> item instanceof Todo)
+                .sorted(Comparator.comparing(Item::getTitle))
                 .collect(Collectors.toList());
     }
     
