@@ -6,13 +6,8 @@ import models.TodoState;
 import models.base.Item;
 
 import java.io.ByteArrayInputStream;
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
 
 public class Application
@@ -83,7 +78,7 @@ public class Application
                     try
                     {
                         handleAddTask(command);
-                    } catch (IllegalArgumentException | ParseException ex)
+                    } catch (IllegalArgumentException ex)
                     {
                         suspend();
                         if (ex instanceof NumberFormatException)
@@ -98,7 +93,7 @@ public class Application
                     try
                     {
                         handleAddTicket(command);
-                    } catch (IllegalArgumentException | ParseException ex)
+                    } catch (IllegalArgumentException ex)
                     {
                         suspend();
                         if (ex instanceof NumberFormatException)
@@ -192,24 +187,14 @@ public class Application
         Thread.sleep(50);
     }
     
-    private LocalDate processDate(String date) throws ParseException
+    private LocalDate processDate(String date)
     {
         if (date == null)
             throw new IllegalArgumentException("Due date can't be empty!");
         
-//        if (date.length() != DATE_LENGTH || !date.contains("/"))
-//            throw new IllegalArgumentException("Due date should be in format dd/MM/yyyy!");
-
-//        int[] dateParts = Arrays.stream(date.split("/"))
-//                .mapToInt(Integer::parseInt)
-//                .toArray();
-
-//        if (dateParts[0] > MAX_DAYS_IN_MONTH ||
-//                dateParts[1] > MAX_MONTHS_IN_YEAR ||
-//                dateParts[2] < ZERO_YEAR)
-//            throw new IllegalArgumentException("Some of the date parts seem invalid!");
+        if (date.length() != DATE_LENGTH || !date.contains("/"))
+            throw new IllegalArgumentException("Date input invalid!");
         
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         return LocalDate.parse(date, formatter);
     }
@@ -242,7 +227,7 @@ public class Application
         system.addTodo(title, description, state);
     }
     
-    private void handleAddTask(Command command) throws ParseException
+    private void handleAddTask(Command command)
     {
         String description = null;
         
@@ -273,7 +258,7 @@ public class Application
         system.addTask(title, description, dueDate, priority, plannedTime, assignee);
     }
     
-    private void handleAddTicket(Command command) throws ParseException
+    private void handleAddTicket(Command command)
     {
         String description = null;
         
