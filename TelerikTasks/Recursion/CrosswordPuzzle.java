@@ -29,15 +29,15 @@ public class CrosswordPuzzle
         if (hashSet.isEmpty())
             printResult(crossword);
         
-        int[] IJVL = findNextMold(crossword);
+        int[] IJVL = findNextPattern(crossword);
         
-        String mold = getMold(crossword, IJVL);
+        String pattern = getPattern(crossword, IJVL);
         
         Iterator<String> it = hashSet.iterator();
         while (it.hasNext())
         {
             String word = it.next();
-            if (canWrite(word, mold))
+            if (canWrite(word, pattern))
             {
                 String[] nextCrossword = writeWord(crossword, IJVL, word);
                 
@@ -68,24 +68,24 @@ public class CrosswordPuzzle
         return crossword;
     }
     
-    static boolean canWrite(String word, String mold)
+    static boolean canWrite(String word, String pattern)
     {
-        if (word.length() != mold.length())
+        if (word.length() != pattern.length())
             return false;
         
         for (int i = 0; i < word.length(); i++)
         {
-            char moldIndex = mold.charAt(i);
+            char patternIndex = pattern.charAt(i);
             char wordIndex = word.charAt(i);
             
-            if (moldIndex != '-' && moldIndex != wordIndex)
+            if (patternIndex != '-' && patternIndex != wordIndex)
                 return false;
         }
         
         return true;
     }
     
-    static String getMold(String[] crossword, int[] IJVL)
+    static String getPattern(String[] crossword, int[] IJVL)
     {
         if (IJVL[2] == 0)  // if horizontal
             return crossword[IJVL[0]].substring(IJVL[1], IJVL[3] + 1);
@@ -100,9 +100,9 @@ public class CrosswordPuzzle
         }
     }
     
-    static int[] findNextMold(String[] crossword)
+    static int[] findNextPattern(String[] crossword)
     {
-        /* These are the parameters of the next empty place (Mold) to write
+        /* These are the parameters of the next empty place (the next word pattern) to write
            the word to. IJVL - I, J, Vertical(0/1), Last element'simplechess number */
         int[] IJVL = new int[]{-1, -1, -1, -1};
         int I = 0;
@@ -179,7 +179,7 @@ public class CrosswordPuzzle
         String[] words = input.nextLine().split(";");
         Set<String> hashSet = new HashSet<>();
         
-        for (String word: words)
+        for (String word : words)
             hashSet.add(word);
         
         crosswordPuzzle(crossword, hashSet);

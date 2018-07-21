@@ -1,4 +1,5 @@
 import java.io.ByteArrayInputStream;
+import java.util.Scanner;
 
 public class MaxSum3x3
 {
@@ -16,16 +17,16 @@ public class MaxSum3x3
     public static void main(String[] args)
     {
         fakeInput();
-        FastInputReader reader = new FastInputReader(System.in);
+        Scanner reader = new Scanner(System.in);
         
-        int n = reader.readInt();
-        int m = reader.readInt();
+        int n = reader.nextInt();
+        int m = reader.nextInt();
         
         int[][] matrix = new int[n][m];
         
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++)
-                matrix[i][j] = reader.readInt();
+                matrix[i][j] = reader.nextInt();
         
         int bestSum = Integer.MIN_VALUE;
         for (int row = 0; row < matrix.length - 2; row++)

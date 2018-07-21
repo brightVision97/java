@@ -1,4 +1,5 @@
 import java.io.ByteArrayInputStream;
+import java.util.Scanner;
 
 public class FindPassword
 {
@@ -11,9 +12,9 @@ public class FindPassword
     public static void main(String[] args)
     {
         fakeInput();
-        FastInputReader input = new FastInputReader(System.in);
+        Scanner input = new Scanner(System.in);
         
-        int digit = input.readInt();
+        int digit = input.nextInt();
         String digitToStr = String.valueOf(digit);
         
         StringBuilder shifted = new StringBuilder(digitToStr);
@@ -24,7 +25,7 @@ public class FindPassword
         }
         
         int shiftedInt = Integer.parseInt(shifted.toString());
-        int inputInt = input.readInt();
+        int inputInt = input.nextInt();
         
         int division = shiftedInt / inputInt;
         int remainder = shiftedInt % inputInt;
