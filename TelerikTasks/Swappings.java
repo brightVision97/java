@@ -5,6 +5,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * When you first learned to program, you were learned how to swap numbers.
+ * When Steve learned to program, he was able to swap a whole bunch of them.
+ * <p>
+ * When Steve raises his hands and says a number X all the numbers left and right of X swap their places.
+ * <p>
+ * Example:
+ * <p>
+ * [a b c] X [d e f]
+ * will become:
+ * [d e f] X [a b c]
+ * <p>
+ * You are given the sequence 1, 2, 3, ... N. Steve will say some numbers.
+ * Your task is to write a program that finds the sequence at the end.
+ */
 public class Swappings
 {
     private static class Link
