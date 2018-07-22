@@ -1,5 +1,15 @@
 import java.util.Stack;
 
+/**
+ * Given two strings S and T, return if they are equal when both are
+ * typed into empty text editors. # means a backspace character.
+ * <p>
+ * Example:
+ * <p>
+ * Input: S = "ab#c", T = "ad#c"
+ * Output: true
+ * Explanation: Both S and T become "ac".
+ */
 public class BackspaceStringCompare
 {
     public static String removeBackspaces(String str)

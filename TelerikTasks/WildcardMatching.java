@@ -1,3 +1,24 @@
+/**
+ * Given an input string (s) and a pattern (p), implement
+ * wildcard pattern matching with support for '?' and '*'.
+ * <p>
+ * '?' Matches any single character.
+ * '*' Matches any sequence of characters (including the empty sequence).
+ * The matching should cover the entire input string (not partial).
+ * <p>
+ * Note:
+ * s could be empty and contains only lowercase letters a-z.
+ * p could be empty and contains only lowercase letters a-z, and characters like ? or *.
+ * <p>
+ * Example :
+ * <p>
+ * Input:
+ * s = "adceb"
+ * p = "*a*b"
+ * Output: true
+ * Explanation: The first '*' matches the empty sequence,
+ * while the second '*' matches the substring "dce".
+ */
 public class WildcardMatching
 {
     static boolean isMatch(String str, String pattern)
@@ -8,12 +29,12 @@ public class WildcardMatching
         int starIndex = -1; /* once we found a star, we want to start to match the rest
                             // of pattern with str, starting from match; this is for
                             // remembering the place where we need to start */
-
+        
         // we check and match every char for the string
         while (strPointer < str.length())
         {
             // case 1. we are not currently at any * -> advancing both pointers
-            if (patternPointer < pattern.length()  &&
+            if (patternPointer < pattern.length() &&
                     (pattern.charAt(patternPointer) == '?' ||
                             str.charAt(strPointer) == pattern.charAt(patternPointer)))
             {
@@ -45,7 +66,7 @@ public class WildcardMatching
            -> we can only allow '*' for the rest of pattern */
         while (patternPointer < pattern.length() && pattern.charAt(patternPointer) == '*')
             patternPointer++;
-
+        
         return patternPointer == pattern.length();
     }
     
@@ -97,7 +118,7 @@ public class WildcardMatching
         
         return dp[word.length()][writeIndex];
     }
-
+    
     public static void main(String[] args)
     {
         System.out.println(isMatchDP("acdcb", "a*c?*b"));

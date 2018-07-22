@@ -1,6 +1,12 @@
 import java.io.ByteArrayInputStream;
 import java.util.*;
 
+/**
+ * Given an array of integers, some elements appear twice and others appear once.
+ * Each integer is in the range of [1, N], where N is the number of elements in the array.
+ * <p>
+ * Find all the integers of [1, N] inclusive that do NOT appear in this array.
+ */
 public class ArraySearch
 {
     static void fakeInput()
@@ -24,7 +30,7 @@ public class ArraySearch
             numsToN[i - 1] = i;
         
         List<Integer> missingNums = new ArrayList<>();
-       
+        
         for (int i = 0; i < numsToN.length; i++)
         {
             boolean found = false;
@@ -40,13 +46,13 @@ public class ArraySearch
                     missingNums.add(numsToN[i]);
             }
         }
-    
+        
         StringBuilder sb = new StringBuilder();
         Iterator<Integer> it = missingNums.iterator();
         while (it.hasNext())
             sb.append(it.next()).append(',');
         sb.deleteCharAt(sb.length() - 1);
-    
+        
         System.out.println(sb.toString());
     }
 }

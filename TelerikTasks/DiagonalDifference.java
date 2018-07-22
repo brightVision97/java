@@ -2,6 +2,9 @@ import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Given a square matrix, calculate the absolute difference between the sums of its diagonals.
+ */
 public class DiagonalDifference
 {
     static void fakeInput()
@@ -12,7 +15,7 @@ public class DiagonalDifference
                 "10 8 -12";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
-
+    
     static int calculateDiff(int[][] matrix)
     {
         int diagMain = 0;
@@ -28,29 +31,29 @@ public class DiagonalDifference
                     diagSecond += matrix[i][j];
             }
         }
-
+        
         return Math.abs(diagMain - diagSecond);
     }
-
+    
     public static void main(String[] args)
     {
         fakeInput();
         Scanner input = new Scanner(System.in);
-
+        
         int n = input.nextInt();
         input.nextLine();
-
+        
         int[][] matrix = new int[n][n];
-
+        
         for (int i = 0; i < n; i++)
         {
             int[] row = Arrays.stream(input.nextLine().split("\\s"))
                     .mapToInt(Integer::parseInt)
                     .toArray();
-
+            
             matrix[i] = row;
         }
-
+        
         System.out.println(calculateDiff(matrix));
     }
 }

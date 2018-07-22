@@ -2,6 +2,19 @@ import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * You are given an array of numbers.
+ * <p>
+ * You task is to group the numbers by remainder of 3.
+ * <p>
+ * Example:
+ * <p>
+ * arr = {1, 2, 3, 4, 5, 6, 7}
+ * groups:
+ * 0 -> 3, 6
+ * 1 -> 1, 4, 7
+ * 2 -> 2, 5
+ */
 public class ThreeGroups
 {
     static void fakeInput()
@@ -9,19 +22,19 @@ public class ThreeGroups
         String input = "1 2 3 4 5 6 7";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
-
+    
     public static void main(String[] args)
     {
         fakeInput();
         Scanner input = new Scanner(System.in);
-
+        
         Integer[] array = Arrays.stream(input.nextLine().split("\\s"))
                 .map(Integer::parseInt).toArray(Integer[]::new);
-
+        
         int remainder0 = 0;
         int remainder1 = 0;
         int remainder2 = 0;
-
+        
         for (int i = 0; i < array.length; i++)
         {
             if (array[i] % 3 == 0)
@@ -31,29 +44,29 @@ public class ThreeGroups
             else if (array[i] % 3 == 2)
                 remainder2++;
         }
-
+        
         int[][] matrix =
                 {
                         new int[remainder0],
                         new int[remainder1],
                         new int[remainder2]
                 };
-
+        
         int indexer = 0;
         for (int i = 0; i < array.length; i++)
             if (array[i] % 3 == 0)
                 matrix[0][indexer++] = array[i];
-
+        
         indexer = 0;
         for (int i = 0; i < array.length; i++)
             if (array[i] % 3 == 1)
                 matrix[1][indexer++] = array[i];
-
+        
         indexer = 0;
         for (int i = 0; i < array.length; i++)
             if (array[i] % 3 == 2)
                 matrix[2][indexer++] = array[i];
-
+        
         for (int[] row : matrix)
         {
             for (int col : row)

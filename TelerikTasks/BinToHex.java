@@ -1,13 +1,16 @@
 import java.util.Scanner;
 
+/**
+ * The task is simple: convert a number in binary to a number in hexadecimal
+ */
 public class BinToHex
 {
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-
+        
         String bin = input.nextLine();
-
+        
         switch (bin.length() % 4)
         {
             case 1:
@@ -20,15 +23,15 @@ public class BinToHex
                 bin = "0" + bin;
                 break;
         }
-
+        
         StringBuilder hex = new StringBuilder();
         String tmp;
-
+        
         for (int i = 0; i < bin.length(); i += 4)
         {
             tmp = "";
             tmp = bin.substring(i, i + 4);
-
+            
             switch (tmp)
             {
                 case "0000":
@@ -81,7 +84,7 @@ public class BinToHex
                     break;
             }
         }
-
+        
         System.out.println(hex.toString());
     }
 }

@@ -6,6 +6,27 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * A 10x10 crossword grid is provided to you, along with a set of
+ * words (or names of places) which need to be filled into the grid.
+ * Cells are marked either + or -.
+ * Cells marked with - are to be filled with the words from the list.
+ * <p>
+ * words = [POLAND, LHASA, SPAIN, INDIA]
+ * <p>
+ * Input 	   		Output
+ * <p>
+ * ++++++++++ 		++++++++++
+ * +------+++ 		+POLAND+++
+ * +++-++++++ 		+++H++++++
+ * +++-++++++ 		+++A++++++
+ * +++-----++ 		+++SPAIN++
+ * +++-++-+++ 		+++A++N+++
+ * ++++++-+++ 		++++++D+++
+ * ++++++-+++ 		++++++I+++
+ * ++++++-+++ 		++++++A+++
+ * ++++++++++ 		++++++++++
+ */
 public class CrosswordPuzzle
 {
     static void fakeInput()

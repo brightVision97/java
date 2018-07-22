@@ -2,6 +2,10 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+/**
+ * You are given an expression. Calculate it in a valid
+ * mathematical way, starting from the most inner brackets.
+ */
 public class SolveExpression
 {
     static void fakeInput()
@@ -46,7 +50,7 @@ public class SolveExpression
             {
                 BigDecimal x = parseTerm();
                 
-                for (;;)
+                for (; ; )
                 {
                     if (eat('+'))
                         x = x.add(parseTerm());
@@ -61,7 +65,7 @@ public class SolveExpression
             {
                 BigDecimal x = parseFactor();
                 
-                for (;;)
+                for (; ; )
                 {
                     if (eat('*'))
                         x = x.multiply(parseFactor());
@@ -78,7 +82,7 @@ public class SolveExpression
                     return parseFactor().negate();
                 
                 BigDecimal x = BigDecimal.ZERO;
-                int startPos = this.pos;
+                int startPos = pos;
                 
                 if (eat('('))
                 {
@@ -89,7 +93,7 @@ public class SolveExpression
                     while ((ch >= '0' && ch <= '9') || ch == '.')
                         nextChar();
                     
-                    x = BigDecimal.valueOf(Double.parseDouble(expression.substring(startPos, this.pos)));
+                    x = BigDecimal.valueOf(Double.parseDouble(expression.substring(startPos, pos)));
                 }
                 
                 return x;
@@ -101,7 +105,7 @@ public class SolveExpression
     {
         fakeInput();
         Scanner input = new Scanner(System.in);
-    
+        
         System.out.println((evaluate(input.nextLine())).toBigInteger());
     }
 }

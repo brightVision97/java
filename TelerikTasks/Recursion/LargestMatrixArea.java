@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+/**
+ * Write a program that finds the largest area of equal neighbour
+ * elements in a rectangular matrix and prints its size.
+ */
 public class LargestMatrixArea
 {
     static void fakeInput()

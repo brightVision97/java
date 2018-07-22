@@ -4,6 +4,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+/**
+ * We are given a matrix of strings of size N x M.
+ * Sequences in the matrix we define as sets of several
+ * neighbour elements located on the same line, column or diagonal.
+ * Write a program that finds the longest sequence of equal
+ * strings in the matrix and prints its length.
+ */
 public class LongestMatrixSequence
 {
     static void fakeInput()

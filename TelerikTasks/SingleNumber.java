@@ -1,6 +1,16 @@
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Given a non-empty array of integers, every
+ * element appears twice except for one.
+ * Find that single one.
+ * <p>
+ * Example :
+ * <p>
+ * Input: [2,2,1]
+ * Output: 1
+ */
 public class SingleNumber
 {
     public static int singleNumber(int[] nums)
