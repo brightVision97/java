@@ -5,6 +5,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * You are given paranthesis. A lot of them. And wildcards (*).
+ * Each wildcard can be replaced by openning or closing paranthesis or can be removed.
+ * You tasks is to say 'yes' or 'no' if an expression of paranthesis is valid.
+ * <p>
+ * An expression is valid, if:
+ * The count of opening and closing paranthesis is equal
+ * Each closing paranthesis must have a corresponding openning paranthesis
+ * Each openning paranthesis must have a corresponding closing paranthesis
+ * Opening paranthesis must be left of closing paranthesis.
+ * <p>
+ * Example:
+ * <p>
+ * Input:
+ * 2
+ * ()()
+ * (*)
+ * Output:
+ * yes
+ * yes
+ */
 public class ValidateBrackets
 {
     static void fakeInput()

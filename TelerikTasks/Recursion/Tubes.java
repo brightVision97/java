@@ -6,6 +6,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+/**
+ * Marto is a well-known Pernik fighter. He has N tubes with different sizes.
+ * Marto also has M-1 friends. His friends also need tubes for fighting.
+ * <p>
+ * Help Marto to cut his own tubes into exactly M parts with same sizes.
+ * This size should be maximal possible (bigger tube = better fighter).
+ * <p>
+ * Your task is to write a program that finds the biggest possible size of
+ * the M tubes which you can cut from the initial Marto’s tubes.
+ */
 public class Tubes
 {
     static void fakeInput()
