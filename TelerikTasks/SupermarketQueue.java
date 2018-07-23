@@ -4,8 +4,6 @@ import inputreader.FastInputReader;
 
 import java.io.ByteArrayInputStream;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * In a supermarket we have a very long queue of people.
@@ -53,7 +51,7 @@ public class SupermarketQueue
     
     private static void append(String name)
     {
-        queue.add(name);
+        queue.addLast(name);
         multiset.add(name);
         builder.append("OK\n");
     }
@@ -82,7 +80,7 @@ public class SupermarketQueue
         {
             for (int i = 0; i < numOfPeople; i++)
             {
-                String nameToHandle = queue.remove();
+                String nameToHandle = queue.removeFirst();
                 multiset.remove(nameToHandle);
                 
                 builder.append(nameToHandle + " ");
