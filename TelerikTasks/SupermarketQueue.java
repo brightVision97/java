@@ -1,9 +1,11 @@
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import inputreader.FastInputReader;
-
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.util.LinkedList;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * In a supermarket we have a very long queue of people.
@@ -46,47 +48,118 @@ import java.util.LinkedList;
  */
 public class SupermarketQueue
 {
-    private static LinkedList<String> queue = new LinkedList<>();
-    private static Multiset<String> multiset = HashMultiset.create();
+    private static List<List<String>> queue = new ArrayList<>();
+    private static Map<String, Integer> map = new HashMap<>();
+    private static int currentIndex = 0;
+    private static int size = 0;
     
     private static void append(String name)
     {
-        queue.addLast(name);
-        multiset.add(name);
+        List<String> toAdd = new ArrayList<>();
+        toAdd.add(name);
+        queue.add(toAdd);
+        
+        ++size;
+        map.put(name, map.getOrDefault(name, 0) + 1);
+        
         builder.append("OK\n");
     }
     
     private static void insert(int pos, String name)
     {
-        if (pos >= 0 && pos <= queue.size())
+        if (pos < 0 || pos > size)
         {
-            queue.add(pos, name);
-            multiset.add(name);
+            builder.append("Error\n");
+            return;
+        }
+        
+        if (pos == size)
+        {
+            append(name);
+            return;
+        }
+        
+        if (pos == 0)
+        {
+            if (size == 0)
+                append(name);
+            else
+            {
+                queue.get(currentIndex).add(name);
+                
+                ++size;
+                map.put(name, map.getOrDefault(name, 0) + 1);
+                
+                builder.append("OK\n");
+            }
+            return;
+        }
+        
+        int placeToAdd = currentIndex;
+        int counter = pos;
+        
+        for (int i = placeToAdd; i < queue.size(); i++)
+        {
+            int innerSize = queue.get(i).size();
+            if (counter >= innerSize)
+            {
+                counter -= innerSize;
+                continue;
+            }
             
-            builder.append("OK");
-        } else
-            builder.append("Error");
-        builder.append("\n");
+            if (counter == 0)
+            {
+                queue.get(i).add(name);
+                
+                ++size;
+                map.put(name, map.getOrDefault(name, 0) + 1);
+                
+                builder.append("OK\n");
+                return;
+            }
+            
+            queue.get(i).add(size - counter, name);
+            
+            ++size;
+            map.put(name, map.getOrDefault(name, 0) + 1);
+            
+            builder.append("OK\n");
+        }
     }
     
     private static void find(String name)
     {
-        builder.append(multiset.contains(name) ? multiset.count(name) : 0).append("\n");
+        builder.append(map.getOrDefault(name, 0)).append("\n");
     }
     
     private static void serve(int numOfPeople)
     {
-        if (numOfPeople <= queue.size())
+        if (numOfPeople > size)
         {
-            for (int i = 0; i < numOfPeople; i++)
-            {
-                String nameToHandle = queue.removeFirst();
-                multiset.remove(nameToHandle);
-                
-                builder.append(nameToHandle + " ");
-            }
-        } else
             builder.append("Error");
+        } else
+        {
+            int counter = numOfPeople;
+            
+            while (counter > 0)
+            {
+                List<String> served = queue.get(currentIndex);
+                
+                while (!served.isEmpty() && counter > 0)
+                {
+                    String lastName = served.get(served.size() - 1);
+                    served.remove(lastName);
+                    builder.append(lastName + " ");
+                    
+                    map.put(lastName, map.getOrDefault(lastName, 0) - 1);
+                    --size;
+                    --counter;
+                    
+                    if (served.isEmpty())
+                        ++currentIndex;
+                }
+            }
+        }
         builder.append("\n");
     }
     
@@ -114,12 +187,12 @@ public class SupermarketQueue
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
     
-    private static final StringBuilder builder = new StringBuilder();
+    private static StringBuilder builder = new StringBuilder();
     
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         fakeInput();
-        FastInputReader reader = new FastInputReader(System.in);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         
         while (true)
         {
@@ -145,8 +218,6 @@ public class SupermarketQueue
                     break;
                 case "Serve":
                     serve(Integer.parseInt(params[1]));
-                    break;
-                default:
                     break;
             }
         }
