@@ -80,7 +80,8 @@ public class FriendsInNeed
         addDirectedEdge(input[1], input[0], input[2], graph, hospitals);
     }
     
-    private static void addDirectedEdge(int from, int to, int weight, Map<Integer, List<Vertex>> graph,
+    private static void addDirectedEdge(int from, int to, int weight,
+                                        Map<Integer, List<Vertex>> graph,
                                         Set<Integer> hospitals)
     {
         if (!graph.containsKey(from))
@@ -92,7 +93,7 @@ public class FriendsInNeed
             graph.get(from).add(new Vertex(to, weight));
     }
     
-    public static Map<Integer, Integer> dijkstra(Integer vertex, Map<Integer, List<Vertex>> graph)
+    public static Map<Integer, Integer> dijkstra(int vertex, Map<Integer, List<Vertex>> graph)
     {
         Set<Integer> used = new HashSet<>();
         Queue<Vertex> queue = new PriorityQueue<>();

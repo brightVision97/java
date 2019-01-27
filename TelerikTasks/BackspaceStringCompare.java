@@ -22,7 +22,6 @@ public class BackspaceStringCompare
             {
                 if (stack.empty())
                     continue;
-                
                 stack.pop();
             } else
                 stack.push(ch);
@@ -43,6 +42,6 @@ public class BackspaceStringCompare
     
     public static void main(String[] args)
     {
-        System.out.println(backspaceCompare("#ab#c", "#ad#c"));
+        System.out.println(backspaceCompare("ab#c", "ad#c"));
     }
 }

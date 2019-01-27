@@ -37,7 +37,9 @@ public class AsteroidCollision
             stack.push(asteroid);
         }
         
-        return stack.stream().mapToInt(i -> i).toArray();
+        return stack.stream()
+                .mapToInt(i -> i)
+                .toArray();
     }
     
     public static void main(String[] args)

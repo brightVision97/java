@@ -39,9 +39,11 @@ public class MaxSum3x3
         {
             for (int col = 0; col < matrix[row].length - 2; col++)
             {
-                int currentSum = matrix[row][col] + matrix[row][col + 1] + matrix[row][col + 2] +
-                        matrix[row + 1][col] + matrix[row + 1][col + 1] + matrix[row + 1][col + 2] +
-                        matrix[row + 2][col] + matrix[row + 2][col + 1] + matrix[row + 2][col + 2];
+                int currentSum = matrix[row][col] + matrix[row][col + 1] +
+                        matrix[row][col + 2] + matrix[row + 1][col] +
+                        matrix[row + 1][col + 1] + matrix[row + 1][col + 2] +
+                        matrix[row + 2][col] + matrix[row + 2][col + 1] +
+                        matrix[row + 2][col + 2];
                 
                 if (currentSum > bestSum)
                     bestSum = currentSum;

@@ -1,3 +1,4 @@
+import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 /**
@@ -9,8 +10,18 @@ import java.util.Scanner;
  */
 public class BalancedNumbers
 {
+    private static void fakeInput()
+    {
+        String input = "275\n" +
+                "693\n" +
+                "110\n" +
+                "742";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+    }
+    
     public static void main(String[] args)
     {
+        fakeInput();
         Scanner input = new Scanner(System.in);
         
         int sum = 0;

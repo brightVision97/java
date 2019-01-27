@@ -34,6 +34,9 @@ public class HDNLToy
         System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
     
+    private static final String WHITESPACE = " ";
+    private static final String EMPTY_STRING = "";
+    
     public static void main(String[] args) throws IOException
     {
         fakeInput();
@@ -46,33 +49,28 @@ public class HDNLToy
         for (int i = 0; i < n; i++)
             input[i] = reader.readLine();
         
-        String whitespace = " ";
-        String identation = null;
-        
         Stack<String> stack = new Stack<>();
         StringBuilder output = new StringBuilder();
         
         for (int i = 0; i < n; i++)
         {
-            while (!stack.isEmpty() && Integer.parseInt(stack.peek().substring(1)) >=
-                    Integer.parseInt(input[i].substring(1)))
-            {
-                identation = IntStream.range(0, stack.size() - 1)
-                        .mapToObj(k -> whitespace)
-                        .collect(Collectors.joining(""));
-                output.append(identation)
+            while (!stack.isEmpty() &&
+                    Integer.parseInt(stack.peek().substring(1)) >=
+                            Integer.parseInt(input[i].substring(1)))
+                output.append(
+                        IntStream.range(0, stack.size() - 1)
+                                .mapToObj(k -> WHITESPACE)
+                                .collect(Collectors.joining(EMPTY_STRING)))
                         .append("</")
                         .append(stack.pop())
                         .append(">")
                         .append("\n");
-            }
-            
             stack.push(input[i]);
             
-            identation = IntStream.range(0, stack.size() - 1)
-                    .mapToObj(k -> whitespace)
-                    .collect(Collectors.joining(""));
-            output.append(identation)
+            output.append(
+                    IntStream.range(0, stack.size() - 1)
+                            .mapToObj(k -> WHITESPACE)
+                            .collect(Collectors.joining(EMPTY_STRING)))
                     .append("<")
                     .append(stack.peek())
                     .append(">")
@@ -81,10 +79,10 @@ public class HDNLToy
         
         while (!stack.isEmpty())
         {
-            identation = IntStream.range(0, stack.size() - 1)
-                    .mapToObj(k -> whitespace)
-                    .collect(Collectors.joining(""));
-            output.append(identation)
+            output.append(
+                    IntStream.range(0, stack.size() - 1)
+                            .mapToObj(k -> WHITESPACE)
+                            .collect(Collectors.joining(EMPTY_STRING)))
                     .append("</")
                     .append(stack.pop())
                     .append(">")

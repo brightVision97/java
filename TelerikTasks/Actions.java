@@ -21,6 +21,17 @@ import java.util.Map;
  */
 public class Actions
 {
+    private static void fakeInput()
+    {
+        String input = "5 5\n" +
+                "0 3\n" +
+                "2 1\n" +
+                "1 4\n" +
+                "1 3\n" +
+                "4 3";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+    }
+    
     private static void order(StringBuilder result, Map<Integer, List<Integer>> edges)
     {
         if (edges.isEmpty())
@@ -31,30 +42,18 @@ public class Actions
             if (!edges.get(key).isEmpty())
                 continue;
             
-            result.append(key).
-                    append("\n");
+            result.append(key).append("\n");
             edges.remove(key);
+            
             clear(edges, key);
             order(result, edges);
-            break;
         }
     }
     
-    private static void clear(Map<Integer, List<Integer>> edges, Integer key)
+    private static void clear(Map<Integer, List<Integer>> edges, int key)
     {
-        for (Integer i : edges.keySet())
+        for (int i : edges.keySet())
             edges.get(i).remove(key);
-    }
-    
-    private static void fakeInput()
-    {
-        String input = "5 5\n" +
-                "0 3\n" +
-                "2 1\n" +
-                "1 4\n" +
-                "1 3\n" +
-                "4 3";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
     }
     
     public static void main(String[] args) throws IOException

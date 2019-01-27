@@ -41,7 +41,8 @@ public class Indices
         
         Integer[] indices =
                 Arrays.stream(input.nextLine().trim().split("\\s"))
-                        .map(Integer::parseInt).toArray(Integer[]::new);
+                        .map(Integer::parseInt)
+                        .toArray(Integer[]::new);
         
         boolean[] visited = new boolean[indices.length];
         

@@ -54,7 +54,10 @@ public class CokiSkoki
         while (!stack.empty())
             result[stack.pop()] = stack.size();
         
-        System.out.println(Arrays.stream(result).max().getAsInt());
-        Arrays.stream(result).forEach(el -> System.out.print(el + " "));
+        System.out.println(Arrays.stream(result)
+                .max()
+                .getAsInt());
+        Arrays.stream(result)
+                .forEach(el -> System.out.print(el + " "));
     }
 }

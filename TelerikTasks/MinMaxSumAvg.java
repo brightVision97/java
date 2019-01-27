@@ -30,8 +30,8 @@ public class MinMaxSumAvg
         Scanner input = new Scanner(System.in);
         
         int n = input.nextInt();
-        
-        double numbers[] = new double[n];
+    
+        double[] numbers = new double[n];
         
         for (int i = 0; i < n; i++)
             numbers[i] = input.nextDouble();

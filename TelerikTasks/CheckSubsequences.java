@@ -15,7 +15,7 @@ import java.util.TreeSet;
  */
 public class CheckSubsequences
 {
-    private static int arr[][];
+    private static int[][] arr;
     
     private static void longestSubsequence(String str1, String str2)
     {
@@ -90,7 +90,7 @@ public class CheckSubsequences
         
         longestSubsequence(str1, str2);
         
-        System.out.println(longestSubsequence(
-                str1, str2, str1.length(), str2.length()).toArray()[0]);
+        System.out.println(longestSubsequence(str1, str2, str1.length(), str2.length())
+                .toArray()[0]);
     }
 }

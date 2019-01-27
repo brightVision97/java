@@ -18,12 +18,14 @@ public class BigNumbers
         for (int i = 0; i < Math.max(num1.length(), num2.length()); i++)
         {
             byte currentDigit =
-                    (byte) ((i < num1.length() ? Character.getNumericValue(num1.charAt(i)) : 0) +
-                            (i < num2.length() ? Character.getNumericValue(num2.charAt(i)) : 0) + carry);
+                    (byte) ((i < num1.length() ? Character.getNumericValue(num1.charAt(i)) : 0)
+                            + (i < num2.length() ? Character.getNumericValue(num2.charAt(i)) : 0)
+                            + carry);
             
             carry = (byte) (currentDigit / 10);
             result.append((byte) (currentDigit % 10) + " ");
         }
+        
         if (carry == 1)
             result.append((byte) 1);
         

@@ -21,7 +21,7 @@ public class BiggestPrimeNumber
         int n = input.nextInt();
         
         while (!isPrime(n))
-            n--;
+            --n;
         
         System.out.println(n);
     }
